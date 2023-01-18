@@ -22,10 +22,10 @@
 
 # Development steps
 
-- Create Flask app - Marcus
+- Create Flask app - Done
 
-- Get raw data - Marcus
-- Harmonize data
+- Get raw data - Marcus - Working (basics) - Possible changes/improvements
+- Harmonize data - Marcus
 - Cleanse data
 - Stage data
 - (Modelled data)
