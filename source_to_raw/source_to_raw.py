@@ -13,18 +13,19 @@ save_path = f'{CURR_DIR_PATH}/../data/testing/raw'
 
 
 def get_endpoint():
-    # TODO get user position
+    # TODO get user position - Depending on Time
+    # TODO Chose position
 
     # Example test variables
     lon = "16.158"
     lat = "58.5812"
 
-    # TODO single-point/multi-point?
+    # TODO single-point/multi-point? - Depending on time Multipoint as well
     set_type = 'point'
 
-    # TODO Check within bounds
+    # TODO Check within bounds - Fix at a later time
 
-    # TODO if out-of-bounds, default location -> Stockholm? /Easter egg?
+    # TODO if out-of-bounds, error message and default location -> Stockholm - Start / Easter egg - If time
 
     url_protocol = "https"
     url_domain = "opendata-download-metfcst.smhi.se"
@@ -48,7 +49,6 @@ def get_raw_data():
 
 def save_dict_to_json():
     data = get_raw_data()
-    # data = data.json()
 
     df = pd.DataFrame(data)
 

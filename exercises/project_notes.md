@@ -49,3 +49,10 @@
 # Presentation
 
 - Pre-record Demo
+- 20 Min
+
+- Members
+- What did we do
+- What went wrong
+- Graphs
+- GitHub-repo share (public)
