@@ -4,7 +4,6 @@
 import os
 import glob
 import datetime
-import pandas as pd
 import json
 
 # Set paths
@@ -14,7 +13,6 @@ SAVE_PATH = f'{CURR_DIR_PATH}/../data/testing/harmonized'
 
 
 def get_raw_Data():
-
     os.chdir(OPEN_PATH)
     files_list = glob.glob('*.json')
     data_file = max(files_list, key=os.path.getctime)
@@ -37,8 +35,6 @@ def handle_time(time):
 def harmonizing_data(data):
     # Harmonized dictionary
     data_dict = {}
-
-    data_dict['approvedTime'] = handle_time(data['approvedTime'])
 
     # Forecast data
     valid_time_value = ""

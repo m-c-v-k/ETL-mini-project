@@ -38,7 +38,7 @@ def get_endpoint():
     return URL
 
 
-def get_source_data():
+def get_raw_data():
     URL = get_endpoint()
     r = requests.get(URL)
 
