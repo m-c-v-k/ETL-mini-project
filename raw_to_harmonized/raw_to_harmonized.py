@@ -2,27 +2,32 @@
 
 # Import necessary libraries
 import os
+import glob
 import pandas as pd
 import json
 
 # Set paths
 CURR_DIR_PATH = os.path.dirname(os.path.realpath(__file__))
-open_path = f'{CURR_DIR_PATH}/../data/testing/raw'
-save_path = f'{CURR_DIR_PATH}/../data/testing/harmonized'
+OPEN_PATH = f'{CURR_DIR_PATH}/../data/testing/raw'
+SAVE_PATH = f'{CURR_DIR_PATH}/../data/testing/harmonized'
 
 
-def read_data():
+def get_raw_Data():
 
-    data = pd.read_json(f'{open_path}/data.json')
-    data = list(data.itertuples(index=False, name=None))
+    os.chdir(OPEN_PATH)
+    files_list = glob.glob('*.json')
+    data_file = max(files_list, key=os.path.getctime)
 
-    return data
+    with open(f'{OPEN_PATH}/{data_file}', 'r') as f:
+        data = json.load(f)
+
+    return data, data_file
 
 
 def harmonize_data():
-    data = read_data()
+    data, file_name = get_raw_Data()
 
-    with open(f'{save_path}/data.txt', 'w+') as f:
+    with open(f'{SAVE_PATH}/data.txt', 'w+') as f:
         json.dump(data, f)
 
 

@@ -24,7 +24,7 @@
 
 - Create Flask app - Done
 
-- Get raw data - Marcus - Working (basics) - Possible changes/improvements
+- Get raw data - Done - Possible changes/improvements depending on time
 - Harmonize data - Marcus
 - Cleanse data
 - Stage data

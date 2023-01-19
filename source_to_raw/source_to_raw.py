@@ -9,7 +9,7 @@ import json
 
 # Set paths
 CURR_DIR_PATH = os.path.dirname(os.path.realpath(__file__))
-save_path = f'{CURR_DIR_PATH}/../data/testing/raw'
+SAVE_PATH = f'{CURR_DIR_PATH}/../data/testing/raw'
 
 
 def get_endpoint():
@@ -38,7 +38,7 @@ def get_endpoint():
     return URL
 
 
-def get_raw_data():
+def get_source_data():
     URL = get_endpoint()
     r = requests.get(URL)
 
@@ -54,15 +54,15 @@ def get_time(approved_time):
     return approved_time
 
 
-def save_to_json():
+def save_raw_data():
     data = get_raw_data()
     data = json.loads(data.text)
 
     approved_time = get_time(data['approvedTime'])
 
-    with open(f'{save_path}/raw_data_{approved_time}.json', 'w+') as f:
+    with open(f'{SAVE_PATH}/raw_data_{approved_time}.json', 'w+') as f:
         json.dump(data, f, indent=3)
 
 
 if __name__ == '__main__':
-    save_to_json()
+    save_raw_data()
