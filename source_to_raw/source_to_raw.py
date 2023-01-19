@@ -2,7 +2,7 @@
 
 # Import necessary libraries
 import os
-import pandas as pd
+import datetime
 import requests
 import json
 
@@ -39,20 +39,30 @@ def get_endpoint():
 
 
 def get_raw_data():
-
     URL = get_endpoint()
-
     r = requests.get(URL)
 
     return r
 
 
-def save_dict_to_json():
+def get_time(approved_time):
+    approved_time = datetime.datetime.strptime(
+        approved_time, '%Y-%M-%dT%H:%S:%fZ')
+    approved_time = datetime.datetime.strftime(
+        approved_time, '%Y-%M-%d_%H')
+
+    return approved_time
+
+
+def save_to_json():
     data = get_raw_data()
+    data = json.loads(data.text)
 
-    df = pd.DataFrame(data)
+    approved_time = get_time(data['approvedTime'])
 
-    df.to_json(f'{save_path}/data.json')
+    with open(f'{save_path}/raw_data_{approved_time}.json', 'w+') as f:
+        json.dump(data, f, indent=3)
 
 
-save_dict_to_json()
+if __name__ == '__main__':
+    save_to_json()
