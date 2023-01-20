@@ -24,13 +24,15 @@ def insert_data_to_precipation_category():
         ["6", "Freezing drizzle"]
     ]
 
-    print(data[0])
-    print(data[0][0])
-
-    """ INSERT INTO weather.precipitation_category (list_of_columns)
+    """ INSERT INTO weather.precipitation_category (data[0][0], data[0][1], data[0][2], data[0][3], data[0][4], data[0][5], data[0][6])
     VALUES 
-    (String 1),
-    (string 2)
+    (data[0][0], data[0][1]),
+    (data[1][0], data[1][1]),
+    (data[2][0], data[2][1]),
+    (data[3][0], data[3][1]),
+    (data[4][0], data[4][1]),
+    (data[5][0], data[5][1]),
+    (data[6][0], data[6][1]);
     """
 
     conn.close()
