@@ -48,6 +48,7 @@ def insert_to_db():
     (String 1),
     (string 2)
     """
+    
 
     conn.close()
 
