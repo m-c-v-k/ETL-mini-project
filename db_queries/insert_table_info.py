@@ -4,6 +4,7 @@
 import os
 import psycopg2
 from connect_to_db import connect_to_db as connect
+from location_data import location_data
 
 
 # Set paths
@@ -54,5 +55,46 @@ VALUES
     conn.close()
 
 
+#fill station data to database
+def insert_data_to_location():
+    conn = connect.connect_to_db()
+
+
+    try:
+        # Create a cursor.
+        cur = conn.cursor()
+
+        # Executing statement.
+        nr = 0
+        for list in location_data:            
+            cur.execute(f""" INSERT INTO weather.location (station_id, latitude, longitude, name, active)
+            VALUES 
+            ({location_data[nr][0]}, 
+            '{location_data[nr][1]}',
+            '{location_data[nr][2]}',
+            '{location_data[nr][3]}',
+            '{location_data[nr][4]}');
+            """)
+            nr += 1
+
+        print(f"Location names added.")
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+    finally:
+        # Save table.
+        conn.commit()
+
+        # Close communication with database.
+        cur.close()
+
+    conn.close()
+
+
+
+
+
 if __name__ == '__main__':
     insert_data_to_precipation_category()
+    insert_data_to_location()
