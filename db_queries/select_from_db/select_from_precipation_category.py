@@ -5,7 +5,7 @@ import psycopg2
 
 
 def select_from_precipation_category(conn, value):
-    query = f"SELECT category_id FROM weather.precipation_category WHERE meaning = '{value}';"
+    query = f"SELECT category_id FROM weather.precipitation_category WHERE meaning = '{value}';"
     value_id = ""
 
     try:
