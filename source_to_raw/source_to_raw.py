@@ -55,7 +55,7 @@ def get_time(approved_time):
 
 
 def save_raw_data():
-    data = get_raw_data()
+    data = get_source_data()
     data = json.loads(data.text)
 
     approved_time = get_time(data['approvedTime'])

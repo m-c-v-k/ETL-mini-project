@@ -4,6 +4,7 @@
 import os
 import glob
 import datetime
+import datetime
 import json
 
 # Set paths
@@ -27,7 +28,7 @@ def handle_time(time):
     time = datetime.datetime.strptime(
         time, '%Y-%M-%dT%H:%S:%fZ')
     time = datetime.datetime.strftime(
-        time, '%Y-%M-%d:%H:%M:%S')
+        time, '%Y-%M-%d %H:%M:%S')
 
     return time
 
@@ -126,10 +127,16 @@ def save_harmonized_data():
     file_name = f'harmonized_data_{file_name[-18:-5]}'
 
     data = harmonizing_data(data)
+    file_name = f'harmonized_data_{file_name[-18:-5]}'
 
+    data = harmonizing_data(data)
+
+    with open(f'{SAVE_PATH}/{file_name}.txt', 'w+') as f:
     with open(f'{SAVE_PATH}/{file_name}.txt', 'w+') as f:
         json.dump(data, f)
 
 
+if __name__ == '__main__':
+    save_harmonized_data()
 if __name__ == '__main__':
     save_harmonized_data()
