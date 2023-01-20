@@ -5,7 +5,7 @@ import psycopg2
 
 
 def select_from_approved_time(conn, value):
-    query = f"SELECT approved_time_id FROM weather.approved_time WHERE approved_time = '{value}';"
+    query = f"SELECT approved_time_id FROM weather.approved_time WHERE reference_time = '{value}';"
     value_id = ""
 
     try:
