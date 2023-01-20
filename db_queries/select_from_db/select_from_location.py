@@ -19,10 +19,10 @@ def select_from_location(conn, lat, lon):
         rows = cur.fetchall()
 
         if rows == []:
-            print("It seems as if there is no matching category.")
+            print("It seems as if there is no matching location.")
         else:
             for row in rows:
-                print("Category found.")
+                print("Location found.")
                 print(row)
                 value_id = row
 

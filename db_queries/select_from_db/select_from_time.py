@@ -25,10 +25,10 @@ AND second = '{time[17:20]}';"""
         rows = cur.fetchall()
 
         if rows == []:
-            print("It seems as if there is no matching location.")
+            print("It seems as if there is no matching time.")
         else:
             for row in rows:
-                print("Location found.")
+                print("Time found.")
                 print(row)
                 value_id = row
 
