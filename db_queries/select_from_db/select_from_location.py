@@ -7,6 +7,8 @@ import psycopg2
 def select_from_location(conn, lat, lon):
     query = f"SELECT station_id FROM weather.location WHERE latitude = '{lat}' AND longitude = '{lon}';"
     value_id = ""
+    print(lat)
+    print(lon)
 
     try:
         # Create a cursor.
@@ -16,15 +18,12 @@ def select_from_location(conn, lat, lon):
         cur.execute(query)
 
         # Check return from executed statement.
-        rows = cur.fetchall()
+        row = cur.fetchone()
 
-        if rows == []:
+        if rows == None:
             print("It seems as if there is no matching location.")
         else:
-            for row in rows:
-                print("Location found.")
-                print(row)
-                value_id = row
+            value_id = row[0]
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)

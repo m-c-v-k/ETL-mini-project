@@ -15,22 +15,25 @@ AND second = '{time[17:20]}';"""
     value_id = ""
 
     try:
-        # Create a cursor.
-        cur = conn.cursor()
+        exist = True
+        while exist == True:
+            cur = conn.cursor()
+            cur.execute(query)
 
-        # Executing a statement.
-        cur.execute(query)
+            row = cur.fetchone()
 
-        # Check return from executed statement.
-        rows = cur.fetchall()
+            if row == None:
+                try:
+                    insert_query = f"INSERT INTO weather.time (time_id, year, month, day, hour, minute, second) VALUES ('{time}', {time[:4]}, {time[5:7]}, {time[8:10]}, {time[11:13]}, {time[14:16]}, {time[17:20]});"
+                    cur = conn.cursor()
+                    cur.execute(insert_query)
 
-        if rows == []:
-            print("It seems as if there is no matching time.")
-        else:
-            for row in rows:
-                print("Time found.")
-                print(row)
-                value_id = row
+                except (Exception, psycopg2.DatabaseError) as error:
+                    print(error)
+
+            else:
+                value_id = row[0]
+                exist = False
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)

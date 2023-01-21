@@ -4,8 +4,8 @@
 import psycopg2
 
 
-def select_from_precipation_category(conn, value):
-    query = f"SELECT category_id FROM weather.precipitation_category WHERE meaning = '{value}';"
+def select_from_forecast(conn, cols, lim):
+    query = f"SELECT {cols} FROM weather.forecast WHERE {lim[0]} = '{lim[1]}' AND {lim[2]} = '{lim[3]}';"
     value_id = ""
 
     try:
@@ -16,12 +16,12 @@ def select_from_precipation_category(conn, value):
         cur.execute(query)
 
         # Check return from executed statement.
-        row = cur.fetchone()
+        rows = cur.fetchall()
 
-        if row == None:
-            print("It seems as if there is no matching category.")
+        if rows == []:
+            print("It seems as if there is no matching location.")
         else:
-            value_id = row[0]
+            value_id = rows
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)

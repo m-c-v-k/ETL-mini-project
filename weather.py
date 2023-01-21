@@ -1,30 +1,38 @@
-import plotly.express as px
 import pandas as pd
-import plotly.graph_objs as oGraph
-import psycopg2
 import pandas as pd
 import plotly.express as px
 from dash import Dash, html, dcc, Input, Output, ctx
 from db_queries.connect_to_db import connect_to_db as connect
-v_user = 111
+from db_queries.select_from_db import select_from_forecast as sf
+# v_user = 111
 conn = connect.connect_to_db()
-statment = f""" select air_temperature, valid_time from weather.forecast where location_id = 52230 and approved_time = 'xx'"""
-df_x = pd.read_sql_query(statment, con=conn)
+
+s1_cols = 'air_temperature, valid_time'
+s1_lim = ['location_id', 52230, 'approved_time', '2023-01-20 15:01:05']
+data = sf.select_from_forecast(conn, s1_cols, s1_lim)
+
+data_list = []
+for item in data:
+    data_list.append([float(item[0]), item[1]])
+
+df_temp = pd.DataFrame(data_list)
+
+
 app = Dash(__name__)
 
 
 def select_graph(type):
     if type == 'line':
         fig = px.line(
-            df_x,
-            x="valid_time",
-            y="air_temperature"
+            df_temp,
+            x=1,
+            y=0
         )
     elif type == 'bar':
         fig = px.bar(
-            df_x,
-            x="valid_time",
-            y="air_temperature"
+            df_temp,
+            x=1,
+            y=0
         )
 
     return fig
@@ -45,7 +53,7 @@ def generate_table(df, max_rows=10):
 
 app.layout = html.Div([
     html.H4(children='ETL Mini-project'),
-    generate_table(df_x),
+    generate_table(df_temp),
     dcc.Graph(id="graphPlotly"),
     html.Button(id='btn_line',
                 children='Line', n_clicks=0),
@@ -86,9 +94,14 @@ def graph_update(btn_line, btn_bar):
         title_font_color="#ACACAC",
         width=800,
         height=600,
-        title=f"air_temperature for Falsterbo",
-        xaxis_title="time",
-        yaxis_title="air_temperature",
+        title=f"Temperature in Falsterbo",
+        title_x=0.5,
+        xaxis_title="Date",
+        yaxis_title="Temperature in Celcius",
+        xaxis=dict(
+            tickmode='linear',
+            tickangle=45
+        )
     )
 
     return fig

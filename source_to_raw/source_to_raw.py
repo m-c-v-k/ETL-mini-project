@@ -17,8 +17,8 @@ def get_endpoint():
     # TODO Chose position
 
     # Example test variables
-    lon = "16.158"
-    lat = "58.5812"
+    lat = "55.383700"
+    lon = "12.816700"
 
     # TODO single-point/multi-point? - Depending on time Multipoint as well
     set_type = 'point'
@@ -41,6 +41,7 @@ def get_endpoint():
 def get_source_data():
     URL = get_endpoint()
     r = requests.get(URL)
+    print(r)
 
     return r
 

@@ -98,6 +98,8 @@ def harmonizing_data(data):
                 pcat_value += f"{str(parameters['values'][0])}, "
 
     data_dict['approvedTime'] = handle_time(data['approvedTime'])
+    data_dict['reference_time'] = handle_time(data['referenceTime'])
+    data_dict['location'] = str(data['geometry']['coordinates'])[2:-2]
     data_dict['valid_time'] = valid_time_value[:-2]
     data_dict['air_pressure'] = msl_value[:-2]
     data_dict['air_temperature'] = t_value[:-2]
