@@ -124,9 +124,9 @@ def harmonizing_data(data):
     return data_dict
 
 
-def save_harmonized_data():
+def save_harmonized_data(lat, lon):
     data, file_name = get_raw_Data()
-    file_name = f'harmonized_data_{file_name[-18:-5]}'
+    file_name = f'harmonized_data_{lat}_{lon}_{file_name[-18:-5]}'
 
     data = harmonizing_data(data)
 

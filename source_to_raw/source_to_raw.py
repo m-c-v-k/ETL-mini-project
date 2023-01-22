@@ -47,5 +47,5 @@ def save_raw_data(lon, lat):
 
     approved_time = get_time(data['approvedTime'])
 
-    with open(f'{SAVE_PATH}/raw_data_{approved_time}.json', 'w+') as f:
+    with open(f'{SAVE_PATH}/raw_data_{lat}_{lon}_{approved_time}.json', 'w+') as f:
         json.dump(data, f, indent=3)
