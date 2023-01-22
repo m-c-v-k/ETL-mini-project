@@ -6,11 +6,11 @@ import glob
 import datetime
 import json
 import psycopg2
-from connect_to_db import connect_to_db as connect
-from select_from_db import select_from_approved_time as sat
-from select_from_db import select_from_precipation_category as spc
-from select_from_db import select_from_location as sl
-from select_from_db import select_from_time as st
+from .connect_to_db import connect_to_db as connect
+from .select_from_db import select_from_approved_time as sat
+from .select_from_db import select_from_precipation_category as spc
+from .select_from_db import select_from_location as sl
+from .select_from_db import select_from_time as st
 
 
 # Set paths
@@ -35,6 +35,11 @@ def insert_to_db():
 
     approved_time_id = sat.select_from_approved_time(
         conn, data['approvedTime'], data['reference_time'])
+
+    coordinates = data['location']
+    coordinates = coordinates.split(", ")
+    location_id = sl.select_from_location(
+        conn, coordinates[0], coordinates[1])
 
     values_string = ""
     for i in range(len(data['valid_time'].split(', '))):
@@ -103,7 +108,7 @@ def insert_to_db():
                 values = data[key].split(', ')
                 temp_string += values[i] + ', '
             elif key == 'location':
-                temp_string += f"52230, "  # Cheating
+                temp_string += str(location_id) + ', '
             else:
                 continue
 
@@ -134,7 +139,3 @@ def insert_to_db():
         cur.close()
 
     conn.close()
-
-
-if __name__ == '__main__':
-    insert_to_db()

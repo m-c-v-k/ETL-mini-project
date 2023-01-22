@@ -131,7 +131,3 @@ def save_harmonized_data():
 
     with open(f'{SAVE_PATH}/{file_name}.txt', 'w+') as f:
         json.dump(data, f)
-
-
-if __name__ == '__main__':
-    save_harmonized_data()

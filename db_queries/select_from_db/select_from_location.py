@@ -20,7 +20,7 @@ def select_from_location(conn, lat, lon):
         # Check return from executed statement.
         row = cur.fetchone()
 
-        if rows == None:
+        if row == None:
             print("It seems as if there is no matching location.")
         else:
             value_id = row[0]
