@@ -4,6 +4,7 @@
 import os
 import glob
 import datetime
+import datetime
 import json
 
 # Set paths
@@ -27,7 +28,7 @@ def handle_time(time):
     time = datetime.datetime.strptime(
         time, '%Y-%M-%dT%H:%S:%fZ')
     time = datetime.datetime.strftime(
-        time, '%Y-%M-%d:%H:%M:%S')
+        time, '%Y-%M-%d %H:%M:%S')
 
     return time
 
@@ -98,6 +99,8 @@ def harmonizing_data(data):
                 pcat_value += f"{str(parameters['values'][0])}, "
 
     data_dict['approvedTime'] = handle_time(data['approvedTime'])
+    data_dict['reference_time'] = handle_time(data['referenceTime'])
+    data_dict['location'] = str(data['geometry']['coordinates'])[2:-2]
     data_dict['valid_time'] = valid_time_value[:-2]
     data_dict['air_pressure'] = msl_value[:-2]
     data_dict['air_temperature'] = t_value[:-2]
@@ -129,7 +132,3 @@ def save_harmonized_data():
 
     with open(f'{SAVE_PATH}/{file_name}.txt', 'w+') as f:
         json.dump(data, f)
-
-
-if __name__ == '__main__':
-    save_harmonized_data()
