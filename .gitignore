@@ -128,5 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#db access
+# db access
 config.ini
+
+# Folder Exercises
+/exercises
