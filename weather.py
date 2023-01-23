@@ -8,7 +8,7 @@ from db_queries.select_from_db import select_from_forecast as sf
 conn = connect.connect_to_db()
 
 s1_cols = 'air_temperature, valid_time'
-s1_lim = ['location_id', 52230, 'approved_time', '2023-01-20 15:01:05']
+s1_lim = ['location_id', 52230, 'approved_time', '2023-01-23 10:01:07']
 data = sf.select_from_forecast(conn, s1_cols, s1_lim)
 
 data_list = []
